@@ -27,6 +27,15 @@ const services: ServiceItem[] = [
   { icon: <Copy className="w-5 h-5" />, title: 'Xerox & Lamination', description: 'Quick photocopying and protective lamination.' },
 ];
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.06, duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
+
 export default function ServicesSection() {
   return (
     <section id="services" className="relative py-24 md:py-32">
@@ -34,11 +43,17 @@ export default function ServicesSection() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <div className="h-[2px] w-12 bg-primary mb-6" />
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: 48 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="h-[2px] bg-primary mb-6"
+          />
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">
             Our Services
           </h2>
@@ -51,16 +66,25 @@ export default function ServicesSection() {
           {services.map((s, i) => (
             <motion.div
               key={s.title}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.3, delay: i * 0.03 }}
-              className="bg-background p-6 group cursor-pointer hover:bg-card transition-colors"
+              custom={i}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-50px' }}
+              variants={cardVariants}
+              whileHover={{ backgroundColor: 'hsl(0 0% 8%)', transition: { duration: 0.2 } }}
+              className="bg-background p-6 group cursor-pointer relative overflow-hidden"
             >
-              <div className="text-muted-foreground group-hover:text-primary transition-colors mb-4">
+              {/* Hover red line accent */}
+              <motion.div
+                className="absolute left-0 top-0 w-[2px] bg-primary"
+                initial={{ height: 0 }}
+                whileHover={{ height: '100%' }}
+                transition={{ duration: 0.3 }}
+              />
+              <div className="text-muted-foreground group-hover:text-primary transition-colors duration-300 mb-4">
                 {s.icon}
               </div>
-              <h3 className="font-heading font-semibold text-foreground mb-2 text-sm">{s.title}</h3>
+              <h3 className="font-heading font-semibold text-foreground mb-2 text-sm group-hover:translate-x-1 transition-transform duration-300">{s.title}</h3>
               <p className="text-xs text-muted-foreground leading-relaxed">{s.description}</p>
             </motion.div>
           ))}
@@ -70,6 +94,7 @@ export default function ServicesSection() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
           className="text-muted-foreground mt-8 text-sm"
         >
           …and many more. <a href="tel:8962930650" className="text-primary hover:underline">Contact us</a> for custom requirements.

@@ -28,9 +28,16 @@ export default function ContactSection() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <div className="h-[2px] w-12 bg-primary mb-6" />
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: 48 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="h-[2px] bg-primary mb-6"
+          />
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
             Contact Us
           </h2>
@@ -40,13 +47,21 @@ export default function ContactSection() {
           {cards.map((card, i) => (
             <motion.div
               key={card.title}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="bg-background p-8"
+              transition={{ delay: i * 0.15, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ backgroundColor: 'hsl(0 0% 8%)' }}
+              className="bg-background p-8 relative overflow-hidden group"
             >
-              <div className="text-primary mb-4">
+              <motion.div
+                className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary"
+                initial={{ scaleX: 0 }}
+                whileHover={{ scaleX: 1 }}
+                transition={{ duration: 0.3 }}
+                style={{ originX: 0 }}
+              />
+              <div className="text-primary mb-4 group-hover:scale-110 transition-transform duration-300">
                 {card.icon}
               </div>
               <h3 className="font-heading font-semibold text-foreground mb-3 text-sm uppercase tracking-wide">{card.title}</h3>
