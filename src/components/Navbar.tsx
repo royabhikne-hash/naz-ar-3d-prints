@@ -16,13 +16,13 @@ export default function Navbar() {
     <motion.nav
       initial={{ y: -80 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-background/70 border-b border-border"
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-background/80 border-b border-border"
     >
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         <button onClick={() => scrollTo('hero')} className="font-heading text-lg font-bold tracking-tight">
-          <span className="text-gradient-primary">Naz-Ar</span>{' '}
-          <span className="text-foreground">PRINTS</span>
+          <span className="text-primary">Naz-Ar</span>{' '}
+          <span className="text-foreground text-sm font-medium tracking-widest uppercase">Prints</span>
         </button>
 
         <div className="hidden md:flex items-center gap-8">
@@ -30,7 +30,7 @@ export default function Navbar() {
             <button
               key={l}
               onClick={() => scrollTo(l)}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors tracking-wide uppercase"
             >
               {l}
             </button>
@@ -55,7 +55,7 @@ export default function Navbar() {
           >
             <div className="flex flex-col gap-4 p-4">
               {navLinks.map((l) => (
-                <button key={l} onClick={() => scrollTo(l)} className="text-muted-foreground hover:text-foreground text-left">
+                <button key={l} onClick={() => scrollTo(l)} className="text-muted-foreground hover:text-foreground text-left uppercase tracking-wide text-sm">
                   {l}
                 </button>
               ))}
